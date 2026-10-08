@@ -1,0 +1,20 @@
+body {
+    background-color: rgb(226, 145, 52);
+    display: flex;
+    justify-content: row;
+    margin: 0%;
+    padding: 0px;
+}
+
+h1 {
+    
+    color: blue;
+    font-family: sans-serif;
+    font-size: 800px;
+}
+
+div {
+    height: 100%;
+    width: 50%;
+    align-items: center;
+}
