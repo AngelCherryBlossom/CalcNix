@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/styles/style.css">
-    <title>six seven</title>
+    <link rel="stylesheet" href="/styles/calcNix.css">
+    <title>CalcNix</title>
 </head>
 <body>
     <header class="menuBar">
@@ -13,9 +13,9 @@
             <img src="#" alt="icone CalcNix">
         </div>
         <div class="naveg">
-            <a href="#" class="janela">Alimentos</a>
-            <a href="#" class="janela">Calculadora</a>
-            <a href="#" class="janela">Cardápios</a>
+            <a href="#" class="janela" id="jnlAlimento">Alimentos</a>
+            <a href="#" class="janela" id="jnlCalc">Calculadora</a>
+            <a href="#" class="janela" id="jnlCardapio">Cardápios</a>
         </div>
         <div class="perfil">
             <img src="#" alt="">
@@ -24,7 +24,128 @@
 
     <div class="pages">
         <div class="pagAlimentos">
-            
+
+            <div class="novoAlimento">
+                <div class="titulo">
+                    <h2>Cadastrar Novo Alimento</h2>
+                </div>
+
+                <br>
+                <br>
+
+                <p>Foto do Alimento</p>
+                <input type="file" name="Foto do alimento" placeholder="+" id="imgAlimento" accept="image/*">
+
+                <p>Nome do Alimento</p>
+                <input type="text" name="nomAlimento" placeholder="Ex: Arroz Integral" id="nomeAlimento">
+
+                <div class="row">
+                    <p>Valor por kg (R$)</p>
+                    <input type="number" name="preco" id="inputpreco" min="0" step="0.01" placeholder="0.00">
+                    <p>Peso em kg</p>
+                    <input type="number" name="peso" id="inputpeso" min="0" step="0.01" placeholder="0.00">
+                </div>
+
+                <p>Calorias (kcal)</p>
+                <input type="number" name="calorias" id="inputcalorias" min="0" step="0.01" placeholder="0.00">
+                
+                <button class="btn">Cadastrar Alimento</button>
+            </div>
+
+            <div class="AlimtsCadas">
+
+                <div class="titulo">
+                    <h2>Alimentos Cadastrados</h2>
+                </div>
+
+                <div class="placeAlimentos">
+                    <!-- Os alimentos ficarão aqui -->
+                </div>
+
+        <div class="pageHidden">
+
+            <div class="pageCalc">
+
+                <div class="firstPannel">
+
+                    <h2>Adicionar Ingrediente</h2>
+
+                    <div class="buscar">
+
+                        <!-- Campo de busca -->
+                        <input type="text" id="inputBusca" placeholder="Digite para buscar..." autocomplete="off">
+                        <!-- Lista onde os resultados vão aparecer -->
+                        <ul id="listaResultados" class="resultados-lista"></ul>
+                    </div>
+
+                    <div class="titulo">
+                        <h2>Alimentos Escolhidos</h2>
+                    </div>
+
+                    <div class="selectAlimento">
+                        <!-- Os Alimentos ficarão aqui -->
+                    </div>
+
+                    <div class="Calc">
+
+                        <div class="titulo">
+                            <h2>Calculadora</h2>
+                        </div>
+
+                        <br>
+
+                        <p>Nome do Prato</p>
+                        <input type="text" name="Nome-prato" id="NomePrato">
+
+                        <div class="row">
+
+                            <p>Porções</p>
+                            <input type="number" name="porcoes" id="porcoes" min="1" placeholder="0">
+
+                            <p>Margem de lucro desejada (%)</p>
+                            <input type="number" name="lucro" id="lucro" min="1" step="0.01" placeholder="0.00">
+
+                        </div>
+
+                        <div class="resultado" id="resultado">
+                            <!-- Resultado ficará aqui -->
+                        </div>
+
+                        <button class="btn" id="calcular">Cal</button>
+
+                            
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="pageCardapios">
+
+                <p>Buscar Pratos</p>
+                <div class="buscar">
+                    <!-- Campo de busca -->
+                    <input type="text" id="inputBuscapratos" placeholder="Digite para buscar..." autocomplete="off">
+                    <!-- Lista onde os resultados vão aparecer -->
+                    <ul id="listaResultadosPratos" class="resultados-lista"></ul>
+                </div>
+                <div class="row">
+                    <p>Adicionar Cardápio</p>
+                    <input type="text" name="nomeCardapio" id="nomeCardapio" placeholder="...">
+                    <button class="btn" id="criarCardapio">Criar</button>
+                </div>
+                <div class="titulo">
+                    <h2>Cardápios</h2>
+                </div>
+                <div class="pannelCardapio" id="pannelCardapio">
+                    <!-- os cardápios ficarão aqui -->
+                </div>
+                
+                
+            </div>
+
+        </div>
+
+            </div>
         </div>
     </div>
     

@@ -1,0 +1,33 @@
+
+body {
+    background-color: #dbc5b2;
+    margin: 0%;
+    padding: 0%;
+    display: flex;
+    justify-content: row;
+}
+
+.pageHidden {
+    display: none;
+
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px; 
+    z-index: 1000;
+    background-color: #fde4c8;
+    border-bottom: 2px solid #a89888;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+    
+}
+
+main {
+    margin-top: 70px; 
+}
