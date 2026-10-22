@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/calcNix.css">
+    <title>CalcNix</title>
+</head>
+<body>
+    <header class="menuBar">
+        <div class="icon">
+            <img src="#" alt="Ícone CalcNix">
+        </div>
+        <div class="naveg">
+            <input type="radio" name="abas" id="tabAlimentos" checked>
+
+            <input type="radio" name="abas" id="tabCalc">
+            
+            <input type="radio" name="abas" id="tabCardapio">
+            
+            <div class="abas">
+                <label for="tabAlimentos" onclick="animaLinha(this)"><a href="#alimentos" class="janela" id="jnlAlimento">Alimentos</a></label>
+            
+                <label for="tabCalc" onclick="animaLinha(this)"><a href="#calculadora" class="janela" id="jnlCalc">Calculadora</a></label>
+            
+                <label for="tabCardapio" onclick="animaLinha(this)"><a href="#cardapios" class="janela" id="jnlCardapio">Cardápios</a></label>
+            
+                <span class="linha"></span>
+            
+            </div>
+        </div>
+        
+        <div class="perfil">
+            <img src="/assets/perfil.png" alt="Foto do Perfil">
+        </div>
+
+    </header>
+
+    <div class="pages">
+        <!-- PÁGINA ALIMENTOS -->
+        <div class="pagAlimentos">
+            <div class="novoAlimento">
+                <div class="titulo">
+                    <h2>Cadastrar Novo Alimento</h2>
+                </div>
+                <p>Foto do Alimento</p>
+                <label class="inputFoto">
+                    <input type="file" name="fotoAlimento" accept="image/*">
+                    <div class="iconeMais">+</div>
+                </label>
+                <p>Nome do Alimento</p>
+                <input type="text" name="nomAlimento" placeholder="Ex: Arroz Integral" id="nomeAlimento">
+                <div class="row">
+                    <div class="rowConteudo">
+                        <p>Valor por kg (R\$)</p>
+                        <input type="number" name="preco" id="inputpreco" min="0" step="0.01" placeholder="0.00">
+                    </div>
+                    <div class="rowConteudo">
+                        <p>Peso em kg</p>
+                        <input type="number" name="peso" id="inputpeso" min="0" step="0.01" placeholder="0.00">
+                    </div>
+                </div> 
+                <p>Calorias (kcal)</p>
+                <input type="number" name="calorias" id="inputcalorias" min="0" step="0.01" placeholder="0.00">
+                <button class="btn">Cadastrar Alimento</button>
+            </div>
+            
+            <div class="alimtsCadas">
+                <div class="titulo">
+                    <h2>Alimentos Cadastrados</h2>
+                </div>
+                <div class="placeAlimentos">
+                    <template id="modelProd">
+                        <div class="produto-item">
+                            <img class="produto-imagem" alt="Imagem do alimento" hidden>
+                            <h3 class="produto-nome"></h3>
+                            <p class="produto-peso"></p>
+                            <p class="produto-custo"></p>
+                            <p class="produto-caloria"></p>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+
+        <!-- PÁGINA CALCULADORA -->
+        <div class="pageCalc pageHidden">
+            <div class="firstPannel">
+                <h2>Adicionar Ingrediente</h2>
+                <div class="buscar">
+                    <input type="text" class="inptBusca" id="inputBusca" placeholder="Digite para buscar..." autocomplete="off">
+                    <ul id="listaResultados" class="resultados-lista"></ul>
+                </div>
+                <div class="titulo">
+                    <h2>Alimentos Escolhidos</h2>
+                </div>
+                <div class="selectAlimento">
+                    <!-- Os Alimentos ficarão aqui -->
+                </div>
+            </div>
+            
+            
+            <div class="secondPannel">
+                <div class="Calc">
+                    <div class="titulo">
+                        <h2>Calculadora</h2>
+                    </div>
+                    <p>Nome do Prato</p>
+                    <input type="text" name="Nome-prato" id="NomePrato">
+                    <div class="row">
+                        <div class="rowConteudo">
+                        <p>Porções</p>
+                        <input type="number" name="porcoes" id="porcoes" min="1" placeholder="0">
+                        </div>
+                        <div class="rowConteudo">
+                        <p>Margem de lucro desejada (%)</p>
+                        <input type="number" name="lucro" id="lucro" min="1" step="0.01" placeholder="0.00">
+                        </div>
+
+                    </div> 
+                    <div class="resultado" id="resultado">
+                        <!-- Resultado ficará aqui -->
+                    </div>
+                    <button class="btn" id="calcular">Calcular</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- PÁGINA 3: CARDÁPIOS -->
+        <div class="pageCardapios pageHidden">
+
+            <div class="pannel">
+
+                <div class="titulo">
+                    <h2>Buscar Pratos</h2>
+                </div>
+
+            <div class="buscar">
+                <input type="text" class="inputBusca" id="inputBuscapratos" placeholder="Digite para buscar..." autocomplete="off">
+                <ul id="listaResultadosPratos" class="resultados-lista"></ul>
+            </div>
+
+            <div class="row">
+                <div class="rowConteudo">
+                        <div class="titulo">
+                            <h2>Pratos Escolhidos</h2>
+                        </div>
+                    <div class="row">
+                        <input type="text" name="nomeCardapio" id="nomeCardapio" placeholder="...">
+                        <button class="btn" id="criarCardapio">Criar</button>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="titulo">
+                <h2>Cardápios</h2>
+            </div>
+            <div class="pannelCardapio" id="pannelCardapio">
+                <!-- os cardápios ficarão aqui -->
+            </div>
+
+            </div>
+            
+        </div>
+    </div>
+
+    <script>
+        const btnAlimento = document.getElementById('jnlAlimento');
+        const btnCalc = document.getElementById('jnlCalc');
+        const btnCardapio = document.getElementById('jnlCardapio');
+
+        const pagAlimentos = document.querySelector('.pagAlimentos');
+        const pagCalc = document.querySelector('.pageCalc');
+        const pagCardapios = document.querySelector('.pageCardapios');
+
+        function esconderPages() {
+            pagAlimentos.classList.add('pageHidden');
+            pagCalc.classList.add('pageHidden');
+            pagCardapios.classList.add('pageHidden');
+
+            btnAlimento.classList.remove('ativo');
+            btnCalc.classList.remove('remove'); // Mantendo padrão limpo
+            btnCalc.classList.remove('ativo');
+            btnCardapio.classList.remove('ativo');
+        }
+
+        // Configuração inicial
+        btnAlimento.classList.add('ativo');
+
+        btnAlimento.addEventListener('click', function(evento) {
+            evento.preventDefault();
+            esconderPages();
+            pagAlimentos.classList.remove('pageHidden');
+            btnAlimento.classList.add('ativo');
+        });
+
+        btnCalc.addEventListener('click', function(evento) {
+            evento.preventDefault();
+            esconderPages();
+            pagCalc.classList.remove('pageHidden');
+            btnCalc.classList.add('ativo');
+        });
+
+        btnCardapio.addEventListener('click', function(evento) {
+            evento.preventDefault();
+            esconderPages();
+            pagCardapios.classList.remove('pageHidden');
+            btnCardapio.classList.add('ativo');
+        });
+
+        function animaLinha(elemento) {
+            const linha = document.querySelector('.linha');
+            const largura = elemento.offsetWidth;
+            const posicao = elemento.offsetLeft;
+            linha.style.width = largura + 'px';
+            linha.style.transform = `translateX(${posicao}px)`;
+        }
+    </script>
+    <script src="/js/produtos.js"></script>
+</body>
+</html>
