@@ -62,6 +62,15 @@
                 </div>
                 <div class="placeAlimentos">
                     <!-- Os alimentos ficarão aqui -->
+                    <template id="modelProd">
+                        <div class="produto-item">
+                            <img class="produto-imagem" alt="Imagem do alimento" hidden>
+                            <h3 class="produto-nome"></h3>
+                            <p class="produto-peso"></p>
+                            <p class="produto-custo"></p>
+                            <p class="produto-caloria"></p>
+                        </div>
+                    </template>
                 </div>
             </div>
         </div> <!-- Fim da pagAlimentos -->
@@ -128,6 +137,37 @@
             <div class="titulo">
                 <h2>Cardápios</h2>
             </div>
+
+            <div class="montarPrato">
+                <h2>Montar prato</h2>
+
+                <label for="nomePrato">Nome do prato</label>
+                <input
+                    type="text"
+                    id="nomePrato"
+                    placeholder="Ex.: Bife com batata"
+                >
+
+                <h3>Alimentos disponíveis</h3>
+                <div id="listaAlimentos">
+                    <!-- Os alimentos cadastrados aparecem aqui -->
+                </div>
+
+                <h3>Alimentos selecionados</h3>
+                <div id="alimentosPrato">
+                    <!-- Os alimentos selecionados aparecem aqui -->
+                </div>
+
+                <div id="resumoPrato" hidden>
+                    <p>Calorias totais: <span id="totalCalorias">0</span> kcal</p>
+                    <p>Custo total: R$ <span id="totalCusto">0,00</span></p>
+                </div>
+
+                <button type="button" class="btn" id="salvarPrato">
+                    Salvar prato
+                </button>
+            </div>
+
             
             <div class="pannelCardapio" id="pannelCardapio">
                 <!-- os cardápios ficarão aqui -->
@@ -183,5 +223,6 @@
     });
     
  </script>
+ <script src="/js/produtos.js"></script>
 </body>
 </html>

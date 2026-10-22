@@ -1,0 +1,4 @@
+.env
+/dados/usuarios.json
+/dados/sessoes/
+node_modules/
