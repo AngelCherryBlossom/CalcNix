@@ -1,7 +1,149 @@
-body {
-    background-color: #dbc5b2;
-    display: flex;
-    justify-content: row;
-    margin: 0%;
-    padding: 0px;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
 }
+
+body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #394e45; 
+    transition: background-color 0.5s ease;
+}
+
+a {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 13px;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: currentColor;
+}
+
+p {
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 12px;
+    margin-bottom: 5px;
+}
+
+
+button {
+    background-color: #394e45;
+    color: #ffffff;
+    border: none;
+    font-weight: bold;
+    width: 100%;
+    height: 40px;
+    font-size: 15px;
+    border-radius: 8px;
+    cursor: pointer; 
+    transition: background-color 0.2s ease;
+    margin-top: 10px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+input.error {
+    border-bottom: 2px solid rgb(131, 1, 1) !important;
+    box-shadow: 0 10px 25px rgba(255, 0, 0, 0.15);
+}
+
+button:hover, button:focus {
+    background-color: #4d6e60;
+    border-bottom: 4px solid #4d6e60;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+input {
+    background-color: #fde4c8;
+    border: none;
+    outline: none;
+    height: 38px;
+    width: 100%;
+    border-radius: 7px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    border-bottom: 2px solid #dbb080;
+    padding: 2px 0;
+    padding-left: 10px; 
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+    margin-bottom: 14px;
+}
+
+input[type="password"] {
+    background-color: #fde4c8 !important;
+}
+
+/* Impede que o fundo do navegador pinte a senha de branco/amarelo quando salvo */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0px 1000px #fde4c8 inset !important;
+    -webkit-text-fill-color: #000 !important;
+}
+
+input:focus {
+    border-bottom: 2px solid #394e45; 
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.caixAlimento {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 450px;
+    min-height: 590px;
+    padding: 55px 45px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    transition: all 0.5s ease;
+}
+
+.caixAlimento.brocolis {
+    border-radius: 50% 50% 35% 35% / 60% 60% 40% 40%;
+    clip-path: polygon(
+        10% 35%, 0% 50%, 8% 70%, 15% 82%, 35% 85%, 
+        38% 100%, 62% 100%, 65% 85%, 85% 82%, 92% 70%, 
+        100% 50%, 90% 35%, 80% 10%, 50% 0%, 20% 10%
+    );
+}
+
+.caixAlimento.melancia {
+    border-radius: 16px 16px 50% 50% / 16px 16px 100% 100%;
+}
+
+.caixAlimento.ovo-quebrado {
+    border-radius: 60% 40% 70% 30% / 40% 50% 60% 50%;
+}
+
+.caixAlimento.pera {
+    border-radius: 50% 50% 40% 40% / 70% 70% 30% 30%;
+}
+
+.forms {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+}
+
+.formsC {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+}
+
+
+.hide {
+    display: none !important; 
+}
+
+

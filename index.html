@@ -4,37 +4,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/styles/style.css">
     <title>CalcNix</title>
+    <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
-    <div class="forms">
-        <div class="login">
+
+    <!-- Container Principal (A forma de alimento vai aqui) -->
+    <div class="caixAlimento" id="caixaAlimento">
+        
+        <!-- Formulário de Login -->
+        <div class="forms" id="loginBox">
+            <h2>CalcNix</h2>
+            
             <p>E-mail</p>
-            <input type="email" name="E-mail" id="loginEmail">
+            <input type="email" id="loginEmail" placeholder="seu@email.com">
+            
             <p>Senha</p>
-            <input type="password" name="Senha" id="loginSenha">
-            <br>
-            <br>
+            <input type="password" id="loginSenha" placeholder="••••••••">
+            
             <button class="enter" id="enter">Entrar</button>
             <a id="btncadas">Não tem conta? Cadastre-se.</a>
         </div>
 
-        <div class="pag-secreta">
-            <div class="cadastro">
-                <p>Nome</p>
-                <input type="text" name="Nome" id="cadNome">
-                <p>E-mail</p>
-                <input type="email" name="E-mail" id="cadEmail">
-                <p>Senha</p>
-                <input type="password" name="Senha" id="cadSenha">
-                <br>
-                <br>
-                <button class="enter" id="cadastro">Cadastrar</button>
-            </div>
-        </div>
-    </div>
-    <script src="/js/loCad.js" defer></script>
+        <!-- Formulário de Cadastro (Inicia escondido) -->
+        <div class="formsC hide" id="cadBox">
+            <h2>Criar Conta</h2>
 
+            <p>Nome</p>
+            <input type="text" id="cadNome" placeholder="Seu nome">
+
+            <p>E-mail</p>
+            <input type="email" id="cadEmail" placeholder="seu@email.com">
+
+            <p>Senha</p>
+            <input type="password" id="cadSenha" placeholder="••••••••">
+
+            <button class="enter" id="cadastro">Cadastrar</button>
+            <a id="btnVoltarLogin">Já tem conta? Entrar.</a>
+        </div>
+
+    </div>
+
+    <script>
+
+        const cores = ['#d1b9ae', '#fde4c8', '#dbb080', '#394e45'];
+
+
+        const alimentos = ['melancia', 'brocolis', 'ovo-quebrado', 'pera'];
+
+  
+        const caixaAlimento = document.getElementById('caixaAlimento');
+        const loginBox = document.getElementById('loginBox');
+        const cadBox = document.getElementById('cadBox');
+
+        const btnCadas = document.getElementById('btncadas');
+        const btnVoltarLogin = document.getElementById('btnVoltarLogin');
+
+
+        function carregarTemaAleatorio() {
+
+            const alimentoSorteado = alimentos[Math.floor(Math.random() * alimentos.length)];
+            caixaAlimento.classList.add(alimentoSorteado);
+
+            const corCaixa = cores[Math.floor(Math.random() * cores.length)];
+            let corFundo = cores[Math.floor(Math.random() * cores.length)];
+
+            while (corFundo === corCaixa) {
+                corFundo = cores[Math.floor(Math.random() * cores.length)];
+            }
+
+            document.body.style.backgroundColor = corFundo;
+            caixaAlimento.style.backgroundColor = corCaixa;
+
+            if (corCaixa === '#394e45') {
+                caixaAlimento.style.color = '#fde4c8';
+            } else {
+                caixaAlimento.style.color = '#394e45';
+            }
+        }
+
+        carregarTemaAleatorio();
+
+
+    btnCadas.addEventListener('click', function (e) {
+        e.preventDefault();
+        loginBox.classList.add('hide');
+        cadBox.classList.remove('hide');
+    });
+
+    btnVoltarLogin.addEventListener('click', function (e) {
+        e.preventDefault();
+        cadBox.classList.add('hide');
+        loginBox.classList.remove('hide');
+    });
+    </script>
 </body>
 </html>
