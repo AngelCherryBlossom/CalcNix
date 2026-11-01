@@ -320,3 +320,29 @@ p {
 #prtEsco{
     margin-top: 15px; 
 }
+
+
+
+
+.resultados-lista li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 100px;
+}
+
+.btn-add {
+    border: none;
+    border-radius: 5px;
+    background-color: #394e45;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.btn-add:hover {
+    background-color: #4d6e60;
+}

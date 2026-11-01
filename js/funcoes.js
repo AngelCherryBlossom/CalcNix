@@ -62,6 +62,7 @@ function savePlate(prato) {
     fs.writeFileSync(pathPlate, info, "utf8");
 }
 
+
 // Exportar funções
 module.exports = {
     readUser,

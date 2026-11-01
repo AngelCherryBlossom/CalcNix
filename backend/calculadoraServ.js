@@ -58,11 +58,11 @@ async function calcular(idProduto) {
         // Calcula o resultado
         const resultado = (preco * peso) + (valorAPI**2);
 
-        console.log("Produto:", produto.nome);
-        console.log("Inflação:", valorAPI);
-        console.log("Preço por kg:", `R$ ${Number(produto.custo).toFixed(2)}`);
-        console.log("Peso:", peso, "kg");
-        console.log("Preço Ideal:", `R$ ${Number(resultado).toFixed(2)}`);
+        // console.log("Produto:", produto.nome);
+        // console.log("Inflação:", valorAPI);
+        // console.log("Preço por kg:", `R$ ${Number(produto.custo).toFixed(2)}`);
+        // console.log("Peso:", peso, "kg");
+        // console.log("Preço Ideal:", `R$ ${Number(resultado).toFixed(2)}`);
 
         return resultado;
 
