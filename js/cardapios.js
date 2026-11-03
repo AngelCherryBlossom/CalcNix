@@ -1,16 +1,52 @@
-
-const cNomeCard = document.getElementById("nomeCardapio");
+const areaCh = document.querySelector(".selectPrato");
 const bCriar = document.getElementById("criarCardapio");
-const pnnCardapios = document.getElementById("pannelCardapio");
+// const pnnCardapios = document.getElementById("pannelCardapio");
 
+let pratChoosen = [];
+
+function normalTexto(text) {
+    return text
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .trim();
+}
+
+function addPrato(prato) {
+    const aEscolhido = pratChoosen.some(receita => 
+        normalTexto(receita.nome) === normalTexto(prato.nome)
+    );
+
+    if (aEscolhido) {
+        return;
+    }
+
+    pratChoosen.push(prato);
+
+    const item = document.createElement("div");
+    item.classList.add("prato-ecolhido");
+    item.textContent = prato.nome;
+
+    areaCh.appendChild(item);
+}
+
+function jaEscolhido(prato) {
+    return pratChoosen.some(receita => 
+        normalTexto(receita.nome) === normalTexto(prato.nome)
+    );
+}
 
 bCriar.addEventListener("click", async () => {
+    const nome = document.getElementById("nomeCardapio").value.trim();
+    // const preIdeal = "..."
 
-    const nome = cNomeCard.value.trim();
-
-    
     if (!nome) {
         alert("Nomeie o cardápio.")
+        return;
+    }
+
+    if (pratChoosen.length === 0) {
+        alert("Adicione ao p=menos um prato.");
         return;
     }
 
@@ -23,6 +59,7 @@ bCriar.addEventListener("click", async () => {
             credentials: "include",
             body: JSON.stringify({
                 nome
+                // preIdeal
             })
         });
 
@@ -35,52 +72,49 @@ bCriar.addEventListener("click", async () => {
 
         alert("Cardápio criado com sucesso!");
 
-        cNomeCard.value = "";
-
-        await carregarCardapios();
-
     } catch (erro) {
         console.error("Erro ao criar cardápio:", erro);
-        alert("Sem conexão com o servidor");
+        alert(erro.message);
     }
 });
 
-function exibeCard(cardapios) {
-    pnnCardapios.querySelectorAll(".card-item").forEach(item => {
-        item.remove();
-    });
 
-    const modelCard = document.getElementById("modelCardapio");
+// function exibeCard(cardapios) {
+//     pnnCardapios.querySelectorAll(".card-item").forEach(item => {
+//         item.remove();
+//     });
 
-    if (!modelCard) {
-        console.error("Template não encontrado.");
-        return;
-    }
+//     const modelCard = document.getElementById("modelCardapio");
 
-    cardapios.forEach(cardapio => {
-        const copiaCard = modelCard.content.cloneNode(true);
+//     if (!modelCard) {
+//         console.error("Template não encontrado.");
+//         return;
+//     }
 
-        copiaCard.querySelector(".cardapio-nome").textContent = cardapio.nome;
+//     cardapios.forEach(cardapio => {
+//         const copiaCard = modelCard.content.cloneNode(true);
 
-        pnnCardapios.appendChild(copiaCard);
-    });
-}
+//         copiaCard.querySelector(".cardapio-nome").textContent = cardapio.nome;
 
-async function carregarCardapios() {
-    try {
-        const anwser = await fetch("/api/cardapios", {
-            credentials: "include"
-        });
+//         pnnCardapios.appendChild(copiaCard);
+//     });
+// }
 
-        if (!anwser.ok) {
-            throw new Error("Não foi possível carregar os cardápios.");
-        }
+// async function carregarCardapios() {
+//     try {
+//         const anwser = await fetch("/api/cardapios", {
+//             credentials: "include"
+//         });
 
-        const cardapios = await anwser.json();
-        exibeCard(cardapios);
-    } catch (erro) {
-        console.error("Erro ao carregar cardápios:", erro);
-    }
-}
+//         if (!anwser.ok) {
+//             throw new Error("Não foi possível carregar os cardápios.");
+//         }
 
-carregarCardapios();
+//         const cardapios = await anwser.json();
+//         exibeCard(cardapios);
+//     } catch (erro) {
+//         console.error("Erro ao carregar cardápios:", erro);
+//     }
+// }
+
+// carregarCardapios();

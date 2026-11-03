@@ -1,11 +1,7 @@
 const btnBusca = document.getElementById("inputBusca");
 const lista = document.getElementById("listaResultados");
 
-
-const areaChoosen = document.querySelector(".selectAlimento");
-
 let prod = [];
-let choosenProd = [];
 let prodCarreg = false;
 
 
@@ -44,7 +40,7 @@ function normalizeTexto(texto) {
         .trim();
 }
 
-// Exibir compatíveis com a digitação
+// Exibir produtos
 function showLista(textoBusca = "") {
     lista.innerHTML = "";
 
@@ -55,13 +51,22 @@ function showLista(textoBusca = "") {
         const nomeNormal = normalizeTexto(produto.nome);
 
         const corresponde = nomeNormal.includes(busca);
+        const jaChoosed = aChoosed(produto);
 
-        const aChoosed = choosenProd.some(choosed =>
-            normalizeTexto(choosed.nome) === nomeNormal
-        );
-
-        return corresponde && !aChoosed;
+        return corresponde && !jaChoosed;
     });
+
+    if (prodFiltrados.length === 0) {
+        const msg = document.createElement("li");
+
+        msg.textContent = "Não há alimentos cadastrados.";
+        msg.classList.add("msg-vazia");
+
+        lista.appendChild(msg);
+
+        lista.style.display = "block";
+        return;
+    }
 
     // Recriar lista
     prodFiltrados.forEach(produto => {
@@ -71,7 +76,7 @@ function showLista(textoBusca = "") {
         nome.textContent = produto.nome;
 
         const btnAdd = document.createElement("button");
-        btnAdd.textContent = "+";
+        btnAdd.textContent = "Adicionar";
         btnAdd.type = "button";
         btnAdd.classList.add("btn-add");
 
@@ -91,23 +96,7 @@ function showLista(textoBusca = "") {
 }
 
 function selectProd(produto) {
-    const aChoosed = choosenProd.some(choosed => 
-        normalizeTexto(choosed.nome) === normalizeTexto(produto.nome)
-    );
-
-    if (aChoosed) {
-        return;
-    }
-
-    choosenProd.push(produto);
-
-    const item = document.createElement("div");
-
-    item.classList.add("ingrediente-escolhido");
-    item.textContent = produto.nome;
-
-    areaChoosen.appendChild(item);
-
+    addAlimento(produto);
     btnBusca.value = "";
 
     hideLista();

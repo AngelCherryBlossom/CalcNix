@@ -1,6 +1,6 @@
 const express = require("express");
-const fs = require("fs");
-const path = require("path");
+// const fs = require("fs");
+// const path = require("path");
 const crypto = require("crypto");
 const funcoes = require("../js/funcoes");
 
@@ -34,8 +34,7 @@ module.exports = function (exigirLogin) {
         const newCard = {
             id: crypto.randomUUID(),
             usuarioId: req.session.usuario.id,
-            nome: nome.trim(),
-            criadoEm: new Date().toISOString()
+            nome: nome.trim()
         };
 
         cardapios.push(newCard);
