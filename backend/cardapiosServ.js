@@ -1,6 +1,5 @@
+
 const express = require("express");
-const fs = require("fs");
-const path = require("path");
 const crypto = require("crypto");
 const funcoes = require("../js/funcoes");
 
@@ -18,16 +17,20 @@ module.exports = function (exigirLogin) {
     });
 
     router.post("/", exigirLogin, (req, res) => {
-        const { nome, alimentos } = req.body;
+        const { nome, pratos } = req.body;
 
         if (
             typeof nome !== "string" ||
-            !nome.trim() ||
-            !Array.isArray(alimentos) ||
-            alimentos.length === 0
+            !nome.trim()
         ) {
             return res.status(400).json({
                 erro: "Preencha todos os campos."
+            });
+        }
+
+        if (!Array.isArray(pratos) || pratos.length === 0) {
+            return res.status(400).json({
+                erro: "Adicione ao menos um prato."
             });
         }
 
@@ -37,8 +40,11 @@ module.exports = function (exigirLogin) {
             id: crypto.randomUUID(),
             usuarioId: req.session.usuario.id,
             nome: nome.trim(),
-            alimentos,
-            criadoEm: new Date().toISOString()
+            pratos: pratos.map(prato => ({
+                id: prato.id,
+                nome: prato.nome,
+                valorFinal: Number(prato.valorFinal)
+            }))
         };
 
         cardapios.push(newCard);

@@ -4,6 +4,7 @@ const path = require("path");
 const pathUser = path.join(__dirname, "..", "dados", "usuarios.json");
 const pathProduct = path.join(__dirname, "..", "dados", "produtos.json");
 const pathCard = path.join(__dirname, "..", "dados", "cardapios.json");
+const pathPlate = path.join(__dirname, "..", "dados", "pratos.json");
 
 
 //Usuários
@@ -28,7 +29,7 @@ function findUserEmail(email) {
     );
 };
 
-// Produtos
+// Produtos/Alimentos
 function readPro() {
     const info = fs.readFileSync(pathProduct, "utf8");
     return JSON.parse(info);
@@ -51,6 +52,18 @@ function saveCard(cardapio) {
     fs.writeFileSync(pathCard, info, "utf8");
 }
 
+// Calculadora/Pratos
+function readPlate() {
+    const info = fs.readFileSync(pathPlate, "utf8");
+    return JSON.parse(info);
+}
+
+function savePlate(prato) {
+    const info = JSON.stringify(prato, null, 2);
+    fs.writeFileSync(pathPlate, info, "utf8");
+}
+
+
 // Exportar funções
 module.exports = {
     readUser,
@@ -59,8 +72,9 @@ module.exports = {
     readPro,
     savePro,
     readCard,
-    saveCard
+    saveCard,
+    readPlate,
+    savePlate
 };
-
 
 

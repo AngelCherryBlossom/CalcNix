@@ -96,7 +96,7 @@
                     <h2>Alimentos Escolhidos</h2>
                 </div>
                 <div class="selectAlimento">
-                    <!-- Os Alimentos ficarão aqui -->
+                    <!-- Os Alimentos escolhidos ficarão aqui -->
                 </div>
             </div>
             
@@ -107,7 +107,7 @@
                         <h2>Calculadora</h2>
                     </div>
                     <p>Nome do Prato</p>
-                    <input type="text" name="Nome-prato" id="NomePrato">
+                    <input type="text" name="Nome-prato" id="nomePrato">
                     <div class="row">
                         <div class="rowConteudo">
                         <p>Porções</p>
@@ -117,13 +117,23 @@
                         <p>Margem de lucro desejada (%)</p>
                         <input type="number" name="lucro" id="lucro" min="1" step="0.01" placeholder="0.00">
                         </div>
-
                     </div> 
-                    <div class="resultado" id="resultado">
-                        <!-- Resultado ficará aqui -->
+                    <div class="rowConteudo">
+                    <p>Custo mensal fixo</p>
+                    <input type="number" name="custoM" id="custoM" min="1" placeholder="0">
                     </div>
                     <br>
                     <button class="btn" id="calcular">Calcular</button>
+                    <div class="resultado" id="resultado" style="display: none;">
+                        <p id="nomePratoRe">Nome</p>
+                        <p id="valorPratoRe">R$ 0,00</p>
+                        <p id="pontEq">Ponto/Equilíbrio: 0</p>
+                    </div>
+                    <div class="infla" id="infoIn">
+                        <p>Inflação de Alimentos:</p>
+                        <span id="vInfla">carregando...</span>
+                        <small id="dataInfla"></small>
+                    </div>
                 </div>
             </div>
         </div>
@@ -147,8 +157,11 @@
                         <div class="titulo">
                             <h2>Pratos Escolhidos</h2>
                         </div>
+                        <div class="selectPrato">
+                            <!--Pratos escolhidos ficam aqui-->
+                        </div>
                     <div class="row" id="prtEsco">
-                        <input type="text" name="nomeCardapio" id="nomeCardapio" placeholder="...">
+                        <input type="text" name="nomeCardapio" id="nomeCardapio" placeholder="Nome Cardápio">
                         <button class="btn" id="criarCardapio">Criar</button>
                     </div>
                 </div>
@@ -219,6 +232,12 @@
             linha.style.transform = `translateX(${posicao}px)`;
         }
     </script>
-    <script src="/js/produtos.js"></script>
+   <script src="/js/produtos.js"></script>
+    <script src="/js/inflacao.js"></script>
+    <script src="/js/pratos.js"></script>
+    <script src="/js/listaProd.js"></script>
+    <script src="/js/calcular.js"></script>
+    <script src="/js/cardapios.js"></script>
+    <script src="/js/listaPratos.js"></script>
 </body>
 </html>
