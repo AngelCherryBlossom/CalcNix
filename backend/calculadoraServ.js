@@ -1,76 +1,91 @@
-
+const express = require("express");
+const crypto = require("crypto");
 const funcoes = require("../js/funcoes");
-const produtos = require("../dados/produtos.json");
 
-const API_URL = "https://api.bcb.gov.br/dados/serie/bcdata.sgs.13522/dados/ultimos/1?formato=json";
+module.exports = function (exigirLogin) {
+    const router = express.Router();
 
-async function calcular(idProduto) {
-    try {
-        // Busca valor da API do Banco Central
-        const anwserAPI = await fetch(API_URL);
+    // Pratos da conta conectada
+    router.get("/", exigirLogin, (req, res) => {
+        const pratos = funcoes.readPlate();
 
-        if (!anwserAPI.ok) {
-            throw new Error("Não foi possível consultar a API.");
-        }
-
-        const dadosAPI = await anwserAPI.json();
-
-        if (!dadosAPI.length) {
-            throw new Error("A API não retornou nenhum valor.");
-        }
-
-        const valorAPI = Number(dadosAPI[0].valor);
-
-        if (!Number.isFinite(valorAPI) || valorAPI === 0) {
-            throw new Error("O valor recebido da API é inválido.");
-        }
-
-        // Busca os alimentos cadastrados
-        const produtos = funcoes.readPro();
-
-        // Localiza o produto pelo ID
-        const produto = produtos.find(
-            item => item.id === idProduto
+        const myPlates = pratos.filter(
+            prato => prato.usuarioId === req.session.usuario.id
         );
 
-        if (!produto) {
-            throw new Error("Produto não encontrado.");
-        }
+        res.status(200).json(myPlates);
+    });
 
-        const precoOriginal = produto.custo;
-        const pesoOriginal = produto.peso;
-
-        const preco = Number(
-            String(precoOriginal ?? "").trim().replace(",", ".")
-        );
-
-        const peso = Number(
-            String(pesoOriginal ?? "").trim().replace(",", ".")
-        );
+    // Add novo prato
+    router.post("/", exigirLogin, (req, res) => {
+        const { nome, porcoes, lucro, alimentos } = req.body;
 
         if (
-            !Number.isFinite(preco) ||
-            !Number.isFinite(peso)
+            typeof nome !== "string" ||
+            !nome.trim() ||
+            !Number.isInteger(Number(porcoes)) ||
+            Number(porcoes) < 1 ||
+            !Number.isFinite(Number(lucro)) ||
+            Number(lucro) <= 0 ||
+            !Array.isArray(alimentos) ||
+            alimentos.length === 0
         ) {
-            throw new Error("Preço ou peso inválido.");
+            return res.status(400).json({
+                erro: "Preencha os dados corretamente."
+            });
         }
 
-        // Calcula o resultado
-        const resultado = (preco * peso) + (valorAPI**2);
+        const pratos = funcoes.readPlate();
 
-        // console.log("Produto:", produto.nome);
-        // console.log("Inflação:", valorAPI);
-        // console.log("Preço por kg:", `R$ ${Number(produto.custo).toFixed(2)}`);
-        // console.log("Peso:", peso, "kg");
-        // console.log("Preço Ideal:", `R$ ${Number(resultado).toFixed(2)}`);
+        const newPlate = {
+            id: crypto.randomUUID(),
+            usuarioId: req.session.usuario.id,
+            nome: nome.trim(),
+            porcoes: Number(porcoes),
+            lucro: Number(lucro),
+            alimentos: alimentos,
+            valorFinal: req.body.valorFinal
+        };
 
-        return resultado;
+        pratos.push(newPlate);
+        funcoes.savePlate(pratos);
 
-    } catch (erro) {
-        console.error("Erro na calculadora:", erro.message);
-    }
+        res.status(201).json({
+            msg: "Prato cadastrado!",
+            prato: newPlate
+        });
+    });
+
+    // Consulta o último INPC registrado
+    router.get("/inpc", exigirLogin, async (req, res) => {
+        try {
+            const API_URL = "https://api.bcb.gov.br/dados/serie/bcdata.sgs.1644/dados/ultimos/1?formato=json";
+
+            const resp = await fetch(API_URL);
+
+            if (!resp.ok) {
+                throw new Error("Falha ao consultar o Banco Central.");
+            }
+
+            const dados = await resp.json();
+
+            if (!dados.length) {
+                throw new Error("A API não retornou dados.");
+            }
+
+            res.status(200).json({
+                data: dados[0].data,
+                valor: Number(dados[0].valor)
+            });
+
+        } catch (erro) {
+            console.error("Erro ao consultar INPC:", erro.message);
+
+            res.status(500).json({
+                erro: "Não foi possível consultar o INPC."
+            });
+        }
+    })
+
+    return router;
 }
-
-module.exports = calcular;
-
-calcular("38eb233d-5003-4caf-99c4-ebee3bdeebb9");

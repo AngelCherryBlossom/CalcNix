@@ -322,6 +322,19 @@ p {
 }
 
 
+.placeAlimentos {
+    display: flex;
+    background-color: none;
+    width: 100%;
+    gap: 4px;
+    margin: 0 auto; 
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: row;
+    padding: 10px;
+    box-sizing: border-box; 
+    border-radius: 5px;
+}
 
 
 .resultados-lista li {
@@ -336,13 +349,126 @@ p {
     border-radius: 5px;
     background-color: #394e45;
     color: white;
-    font-size: 20px;
+    font-size: 15px;
     font-weight: bold;
-    width: 30px;
+    width: fit-content;
     height: 30px;
     cursor: pointer;
 }
 
 .btn-add:hover {
     background-color: #4d6e60;
+}
+
+
+.selectAlimento div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 100px;
+}
+
+
+.selectPrato div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 100px;
+}
+
+.btn-addPra {
+    border: none;
+    border-radius: 5px;
+    background-color: #394e45;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    width: fit-content;
+    height: 30px;
+    cursor: pointer;
+}
+
+.btn-addPra:hover {
+    background-color: #4d6e60;
+}
+
+.ingrediente-escolhido .input-peso {
+    display: block;
+    margin: 0;
+    border: 5px;
+    border-radius: 5px;
+    background-color: white;
+    color: #394e45;
+    font-size: 15px;
+    width: 80px;
+    min-width: 80px;
+    height: 30px;
+    line-height: normal;
+}
+
+.ingrediente-escolhido .input-peso:focus {
+    display: block;
+    margin: 0;
+    border: 5px;
+    border-radius: 5px;
+    background-color: white;
+    color: #394e45;
+    font-size: 15px;
+    width: 80px;
+    min-width: 80px;
+    height: 30px;
+    line-height: normal;
+}
+
+.ingrediente-escolhido {
+    display: flex;
+    align-items: center;
+    gap: 1px;
+}
+
+.ingrediente-escolhido .btn-less {
+    border: none;
+    border-radius: 5px;
+    background-color: #394e45;
+    color: white;
+    font-size: 20px;
+    width: 80px;
+    height: 30px;
+    cursor: pointer;
+    align-self:flex-end;
+}
+
+.ingrediente-escolhido .btn-more {
+    border: none;
+    border-radius: 5px;
+    background-color: #394e45;
+    color: white;
+    font-size: 20px;
+    width: 80px;
+    height: 30px;
+    cursor: pointer;
+    align-self:flex-end;
+}
+
+.resultado {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1px;
+    background-color: #4d6e60;
+    padding: 10px;
+    margin-top: 12px;
+    border-radius: 5px;
+    color: white;
+    justify-content: space-between;
+}
+
+.infla {
+    display: flex;
+    justify-content: space-between;
+    gap: 1px;
+    padding: 5px;
+    margin: 1px;
+    align-items: center;
+    font-size: 15px;
 }

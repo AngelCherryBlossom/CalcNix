@@ -6,6 +6,7 @@ const pathProduct = path.join(__dirname, "..", "dados", "produtos.json");
 const pathCard = path.join(__dirname, "..", "dados", "cardapios.json");
 const pathPlate = path.join(__dirname, "..", "dados", "pratos.json");
 
+
 //Usuários
 function readUser() {
     const info = fs.readFileSync(pathUser, "utf8");
@@ -75,6 +76,5 @@ module.exports = {
     readPlate,
     savePlate
 };
-
 
 
