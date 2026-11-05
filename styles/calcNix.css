@@ -438,6 +438,7 @@ p {
     align-self:flex-end;
 }
 
+
 .ingrediente-escolhido .btn-more {
     border: none;
     border-radius: 5px;
@@ -447,12 +448,12 @@ p {
     width: 80px;
     height: 30px;
     cursor: pointer;
-    align-self:flex-end;
+    align-self: flex-end;
 }
 
 .resultado {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     gap: 1px;
     background-color: #4d6e60;
@@ -460,7 +461,6 @@ p {
     margin-top: 12px;
     border-radius: 5px;
     color: white;
-    justify-content: space-between;
 }
 
 .infla {

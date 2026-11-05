@@ -1,3 +1,4 @@
+
 const areaChoosen = document.querySelector(".selectAlimento");
 const btnCalcul = document.getElementById("calcular");
 
@@ -11,13 +12,16 @@ function normalizarNome(nome) {
         .trim();
 }
 
-// Adicionar alimento à lista de escolhidos
-function addAlimento(produto) {
-    const jaEscolhido = aliChoosen.some(alimento =>
+// Verificar se o alimento já foi escolhido
+function aChoosed(produto) {
+    return aliChoosen.some(alimento =>
         normalizarNome(alimento.nome) === normalizarNome(produto.nome)
     );
+}
 
-    if (jaEscolhido) {
+// Adicionar alimento à lista de escolhidos
+function addAlimento(produto) {
+    if (aChoosed(produto)) {
         return;
     }
 
@@ -68,7 +72,7 @@ function addAlimento(produto) {
 
         inputPe.value = produto.pesoGramas;
     });
-    
+
     item.appendChild(nome);
     item.appendChild(btnMe);
     item.appendChild(inputPe);
@@ -78,12 +82,7 @@ function addAlimento(produto) {
     areaChoosen.appendChild(item);
 }
 
-function aChoosed(produto) {
-    return aliChoosen.some(alimento => 
-        normalizarNome(alimento.nome) === normalizarNome(produto.nome)
-    );
-}
-
+// Limpar a calculadora
 function cleanCalc() {
     areaChoosen.innerHTML = "";
     aliChoosen = [];
@@ -94,13 +93,12 @@ function cleanCalc() {
     document.getElementById("custoM").value = "";
 }
 
+// Calcular e cadastrar o prato
 btnCalcul.addEventListener("click", async () => {
     const nome = document.getElementById("nomePrato").value.trim();
     const porcoes = Number(document.getElementById("porcoes").value);
     const lucro = Number(document.getElementById("lucro").value);
     const custoF = Number(document.getElementById("custoM").value);
-    
-    const custVar = await calcCusto(aliChoosen);
 
     if (!nome) {
         alert("Digite o nome do prato.");
@@ -117,33 +115,44 @@ btnCalcul.addEventListener("click", async () => {
         return;
     }
 
-    if (lucro <= 0 || !Number.isFinite(lucro) ) {
+    if (lucro <= 0 || !Number.isFinite(lucro)) {
         alert("Informe valores válidos.");
         return;
     }
 
     if (!Number.isFinite(custoF) || custoF < 0) {
-        alert("Informe um valor válido.");
+        alert("Informe um valor válido para o custo fixo.");
+        return;
     }
 
+    const custVar = await calcCusto(aliChoosen);
+
     const result = calcLucro(custVar, custoF, lucro);
-    const pontoEqui = pontoEquilibrio(result.custoFixo, result.custoVar, result.valorPra);
+
+    const pontoEqui = pontoEquilibrio(
+        result.custoFixo,
+        result.custoVar,
+        result.valorPra
+    );
 
     if (pontoEqui === null) {
-        alert("");
         return;
     }
 
     console.log(`Ponto de equilíbrio: ${pontoEqui} unidades`);
 
-    // manda o nome e o valor do prato para o html
-    document.getElementById("valorPratoRe").textContent = `R$ ${result.valorPra.toFixed(2).replace(".", ",")}`;
+    // Exibir o resultado do prato
+    document.getElementById("valorPratoRe").textContent =
+        `R$ ${result.valorPra.toFixed(2).replace(".", ",")}`;
+
     document.getElementById("nomePratoRe").textContent = nome;
-    document.getElementById("pontEq").textContent = `Ponto de equilíbrio: ${pontoEqui}`;
+
+    document.getElementById("pontEq").textContent =
+        `Ponto de equilíbrio: ${pontoEqui}`;
 
     document.getElementById("resultado").style.display = "block";
-    // findProdSelect(aliChoosen);
 
+    // Dados do prato que serão enviados ao servidor
     const prato = {
         nome: nome,
         porcoes: porcoes,
@@ -169,10 +178,11 @@ btnCalcul.addEventListener("click", async () => {
         }
 
         alert("Prato cadastrado com sucesso!");
+
         cleanCalc();
 
     } catch (erro) {
-       console.error("Erro ao salvar prato:", erro);
-       alert(erro.message);
+        console.error("Erro ao salvar prato:", erro);
+        alert(erro.message);
     }
 });

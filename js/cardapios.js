@@ -12,6 +12,7 @@ function normalTexto(text) {
         .trim();
 }
 
+// Limpa os pratos escolhidos e o campo do nome
 function cleanCard() {
     areaCh.innerHTML = "";
     pratChoosen = [];
@@ -19,8 +20,9 @@ function cleanCard() {
     document.getElementById("nomeCardapio").value = "";
 }
 
+// Adiciona um prato ao cardápio
 function addPrato(prato) {
-    const aEscolhido = pratChoosen.some(receita => 
+    const aEscolhido = pratChoosen.some(receita =>
         normalTexto(receita.nome) === normalTexto(prato.nome)
     );
 
@@ -32,7 +34,6 @@ function addPrato(prato) {
 
     const item = document.createElement("div");
     item.classList.add("prato-ecolhido");
-    item.textContent = prato.nome;
 
     const nome = document.createElement("span");
     nome.textContent = prato.nome;
@@ -50,22 +51,22 @@ function addPrato(prato) {
 }
 
 function jaEscolhido(prato) {
-    return pratChoosen.some(receita => 
+    return pratChoosen.some(receita =>
         normalTexto(receita.nome) === normalTexto(prato.nome)
     );
 }
 
+// Cria o cardápio
 bCriar.addEventListener("click", async () => {
     const nome = document.getElementById("nomeCardapio").value.trim();
-    // const preIdeal = "..."
 
     if (!nome) {
-        alert("Nomeie o cardápio.")
+        alert("Nomeie o cardápio.");
         return;
     }
 
     if (pratChoosen.length === 0) {
-        alert("Adicione ao p=menos um prato.");
+        alert("Adicione ao menos um prato.");
         return;
     }
 
@@ -79,18 +80,18 @@ bCriar.addEventListener("click", async () => {
             body: JSON.stringify({
                 nome,
                 pratos: pratChoosen
-                // preIdeal
             })
         });
 
         const dadosCard = await anwser.json();
 
         if (!anwser.ok) {
-            alert(dadosCard.erro || "Não foi possível criar o cardápio");
+            alert(dadosCard.erro || "Não foi possível criar o cardápio.");
             return;
         }
 
         alert("Cardápio criado com sucesso!");
+
         await carregarCardapios();
         cleanCard();
 
@@ -100,11 +101,9 @@ bCriar.addEventListener("click", async () => {
     }
 });
 
-
+// Exibe os cardápios
 function exibeCard(cardapios) {
     pnnCardapios.innerHTML = "";
-
-    const modelCard = document.getElementById("modelCardapio");
 
     cardapios.forEach(cardapio => {
         const item = document.createElement("div");
@@ -148,6 +147,7 @@ function exibeCard(cardapios) {
     });
 }
 
+// Busca os cardápios salvos
 async function carregarCardapios() {
     try {
         const anwser = await fetch("/api/cardapios", {
@@ -160,6 +160,7 @@ async function carregarCardapios() {
 
         const cardapios = await anwser.json();
         exibeCard(cardapios);
+
     } catch (erro) {
         console.error("Erro ao carregar cardápios:", erro);
     }

@@ -1,9 +1,9 @@
+
 const findPratos = document.getElementById("inputBuscapratos");
 const listaPratos = document.getElementById("listaResultadosPratos");
 
 let pratosDisp = [];
 let pratosCarreg = false;
-
 
 async function carregarPratos() {
     try {
@@ -71,7 +71,8 @@ function exibePratos(buscaPratos = "") {
 
         const nome = document.createElement("span");
         nome.textContent = prato.nome;
-        
+
+        // Exibir o valor do prato
         const valor = document.createElement("span");
         valor.textContent = Number(prato.valorFinal).toLocaleString("pt-BR", {
             style: "currency",
@@ -104,7 +105,7 @@ function exibePratos(buscaPratos = "") {
 function selectPrato(prato) {
     addPrato(prato);
     findPratos.value = "";
-    
+
     hideListaP();
 }
 
@@ -112,6 +113,7 @@ findPratos.addEventListener("click", async () => {
     if (!pratosCarreg) {
         await carregarPratos();
     }
+
     exibePratos(findPratos.value);
 });
 
@@ -127,8 +129,7 @@ function hideListaP() {
     listaPratos.style.display = "none";
 }
 
-
-document.addEventListener("click", (evento) => {
+document.addEventListener("click", evento => {
     const campTrue = findPratos.contains(evento.target);
     const lisTrue = listaPratos.contains(evento.target);
 

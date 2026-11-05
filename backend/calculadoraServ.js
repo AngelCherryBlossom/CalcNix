@@ -85,7 +85,7 @@ module.exports = function (exigirLogin) {
                 erro: "Não foi possível consultar o INPC."
             });
         }
-    })
+    });
 
     return router;
-}
+};
